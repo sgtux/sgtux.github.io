@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SG Tux</title>
+    <link>blog/</link>
+    <description>Recent content on SG Tux</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 16 Feb 2023 09:03:20 -0800</lastBuildDate><atom:link href="blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Arquitetura de referência</title>
+      <link>blog/posts/reference-arquitecture/</link>
+      <pubDate>Thu, 16 Feb 2023 09:03:20 -0800</pubDate>
+      
+      <guid>blog/posts/reference-arquitecture/</guid>
+      <description>O que é arquitetura de referência</description>
+    </item>
+    
+    <item>
+      <title>Como previnir SQL Injection em aplicações JAVA ?</title>
+      <link>blog/posts/java-sql-injection-prevent/</link>
+      <pubDate>Wed, 15 Feb 2023 09:03:20 -0800</pubDate>
+      
+      <guid>blog/posts/java-sql-injection-prevent/</guid>
+      <description>O que é SQL Injection ? Durante muitos anos o SQL Injection foi e ainda é uma falha de segurança crítica muito encontrada em aplicações web, esta falha basicamente se consiste em, um usuário através de uma entrada de dados, seja por um parâmetro de formulário ou parâmetro de url, conseguir executar comandos diretamente no banco de dados.
+Então vamos tomar como exemplo três formas diferêntes de implementação de um método simples de login que faz acesso ao banco de dados buscando um usuário por email e senha:</description>
+    </item>
+    
+  </channel>
+</rss>

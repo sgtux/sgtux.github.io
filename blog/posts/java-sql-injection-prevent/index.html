@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Como previnir SQL Injection em aplicações JAVA ? // SG Tux</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.92.2" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/blog/css/main.min.3c3c186cd62e563ad6e2f00a89dbee656ab912d1d46f856b5605dd0232521e2a.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Como previnir SQL Injection em aplicações JAVA ?"/>
+<meta name="twitter:description" content="O que é SQL Injection ? Durante muitos anos o SQL Injection foi e ainda é uma falha de segurança crítica muito encontrada em aplicações web, esta falha basicamente se consiste em, um usuário através de uma entrada de dados, seja por um parâmetro de formulário ou parâmetro de url, conseguir executar comandos diretamente no banco de dados.
+Então vamos tomar como exemplo três formas diferêntes de implementação de um método simples de login que faz acesso ao banco de dados buscando um usuário por email e senha:"/>
+
+    <meta property="og:title" content="Como previnir SQL Injection em aplicações JAVA ?" />
+<meta property="og:description" content="O que é SQL Injection ? Durante muitos anos o SQL Injection foi e ainda é uma falha de segurança crítica muito encontrada em aplicações web, esta falha basicamente se consiste em, um usuário através de uma entrada de dados, seja por um parâmetro de formulário ou parâmetro de url, conseguir executar comandos diretamente no banco de dados.
+Então vamos tomar como exemplo três formas diferêntes de implementação de um método simples de login que faz acesso ao banco de dados buscando um usuário por email e senha:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="blog/posts/java-sql-injection-prevent/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-15T09:03:20-08:00" />
+<meta property="article:modified_time" content="2023-02-15T09:03:20-08:00" />
+
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="blog"><img class="app-header-avatar" src="/blog/images/me.jpg" alt="John Doe" /></a>
+      <span class="app-header-title">SG Tux</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="blog/"> Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="blog/about/">About</a>
+      </nav>
+      <p>Encontre aqui conteúdo sobre Segurança Defensiva e Ofensiva em Aplicações Web!</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/sgtux" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Meu Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://www.linkedin.com/in/sgtux/" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>Meu LinkedIn</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg>
+          </a>
+        
+          <a href="https://instagram.com/sgtux/" target="_blank" rel="noreferrer noopener me">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-instagram">
+  <title>Meu Instagram</title>
+  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+</svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Como previnir SQL Injection em aplicações JAVA ?</h1>
+      <div class="post-meta">
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Feb 15, 2023
+        </div>
+        <div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          3 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h3 id="o-que-é-sql-injection-">O que é SQL Injection ?</h3>
+<p>Durante muitos anos o SQL Injection foi e ainda é uma falha de segurança crítica muito encontrada em aplicações web, esta falha basicamente se consiste em, um usuário através de uma entrada de dados, seja por um parâmetro de formulário ou parâmetro de url, conseguir executar comandos diretamente no banco de dados.</p>
+<p>Então vamos tomar como exemplo três formas diferêntes de implementação de um método simples de login que faz acesso ao banco de dados buscando um usuário por email e senha:</p>
+<p>Statement:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> Usuario <span style="color:#a6e22e">login</span><span style="color:#f92672">(</span>String email<span style="color:#f92672">,</span> String senha<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> SQLException <span style="color:#f92672">{</span>
+    var query <span style="color:#f92672">=</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;select * from usuario where email = &#39;%s&#39; and senha = &#39;%s&#39;&#34;</span><span style="color:#f92672">,</span> email<span style="color:#f92672">,</span> senha<span style="color:#f92672">);</span>
+
+    Statement statement <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">connection</span><span style="color:#f92672">.</span><span style="color:#a6e22e">createStatement</span><span style="color:#f92672">();</span>
+    var resultSet <span style="color:#f92672">=</span> statement<span style="color:#f92672">.</span><span style="color:#a6e22e">executeQuery</span><span style="color:#f92672">(</span>query<span style="color:#f92672">);</span>
+    Usuario usuario <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+    
+    <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>resultSet<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+        usuario<span style="color:#f92672">.</span><span style="color:#a6e22e">setId</span><span style="color:#f92672">(</span>resultSet<span style="color:#f92672">.</span><span style="color:#a6e22e">getLong</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">));</span>
+        usuario<span style="color:#f92672">.</span><span style="color:#a6e22e">setNome</span><span style="color:#f92672">(</span>resultSet<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;nome&#34;</span><span style="color:#f92672">));</span>
+        usuario<span style="color:#f92672">.</span><span style="color:#a6e22e">setSobrenome</span><span style="color:#f92672">(</span>resultSet<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;sobrenome&#34;</span><span style="color:#f92672">));</span>
+        usuario<span style="color:#f92672">.</span><span style="color:#a6e22e">setEmail</span><span style="color:#f92672">(</span>resultSet<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;email&#34;</span><span style="color:#f92672">));</span>
+        usuario<span style="color:#f92672">.</span><span style="color:#a6e22e">setFoto</span><span style="color:#f92672">(</span>resultSet<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;foto&#34;</span><span style="color:#f92672">));</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">return</span> usuario<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>JPA:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> Usuario <span style="color:#a6e22e">login</span><span style="color:#f92672">(</span>String email<span style="color:#f92672">,</span> String senha<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    var query <span style="color:#f92672">=</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;select * from usuario where email = &#39;%s&#39; and senha = &#39;%s&#39;&#34;</span><span style="color:#f92672">,</span> email<span style="color:#f92672">,</span> senha<span style="color:#f92672">);</span>
+    var list <span style="color:#f92672">=</span> entityManager<span style="color:#f92672">.</span><span style="color:#a6e22e">createNativeQuery</span><span style="color:#f92672">(</span>query<span style="color:#f92672">,</span> Usuario<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">).</span><span style="color:#a6e22e">getResultList</span><span style="color:#f92672">();</span>
+    <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">())</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">else</span>
+        <span style="color:#66d9ef">return</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>0<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>JPA com JPQL:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> Usuario <span style="color:#a6e22e">login</span><span style="color:#f92672">(</span>String email<span style="color:#f92672">,</span> String senha<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    var jpqlquery <span style="color:#f92672">=</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;select u from Usuario u where u.email = &#39;%s&#39; and u.senha = &#39;%s&#39;&#34;</span><span style="color:#f92672">,</span> email<span style="color:#f92672">,</span> senha<span style="color:#f92672">);</span>
+    var list <span style="color:#f92672">=</span> entityManager<span style="color:#f92672">.</span><span style="color:#a6e22e">createQuery</span><span style="color:#f92672">(</span>jpqlquery<span style="color:#f92672">,</span> Usuario<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">).</span><span style="color:#a6e22e">getResultList</span><span style="color:#f92672">();</span>
+    <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">())</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">else</span>
+        <span style="color:#66d9ef">return</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>0<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>Bom, então vamos entender um poucos mais o porque deste código ser vulnerável. Vamos pegar o primeiro método, que na verdade também serve para os demais.</p>
+<p>Supondo que o email enviado é <em><a href="mailto:admin@mail.com">admin@mail.com</a></em> e a senha é <em>123</em>, o comando que será enviado para o banco de dados será:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> usuario <span style="color:#66d9ef">where</span> email <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;admin@mail.com&#39;</span> <span style="color:#66d9ef">and</span> senha <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;123&#39;</span>
+</code></pre></div><p>Agora vamos supor que o email enviado é <em><a href="mailto:admin@mail.com">admin@mail.com</a>' &ndash;</em> e a senha <em>123</em>, o comando enviado para banco de dados será:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> usuario <span style="color:#66d9ef">where</span> email <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;admin@mail.com&#39;</span> <span style="color:#75715e">--&#39; and senha = &#39;123&#39;
+</span></code></pre></div><p>Então mesmo que a senha esteja incorreta, o email será encontrado no banco de dados e o login terá sucesso.</p>
+<p>E agora o que podemos fazer para garantir que nosso código não tenha esse tipo de falha, bom primeiro lugar, muito importante:</p>
+<h3 id="nunca-concatene-os-valores-enviado-por-usuário-em-comandos-que-fazem-acesso-ao-banco-de-dados-ao-invés-disso-utilize-consultas-parametrizáveis-também-conhecidas-como-prepared-statement">Nunca concatene os valores enviado por usuário em comandos que fazem acesso ao banco de dados, ao invés disso utilize consultas parametrizáveis (também conhecidas como Prepared Statement)!</h3>
+<p>Então segue os exemplos de códigos com a falha de SQL Injection resolvida:</p>
+<p><strong>Solução Statement:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> Usuario <span style="color:#a6e22e">login</span><span style="color:#f92672">(</span>String email<span style="color:#f92672">,</span> String senha<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> SQLException <span style="color:#f92672">{</span>
+    var query <span style="color:#f92672">=</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;select * from usuario where email = ? and senha = ?&#34;</span><span style="color:#f92672">,</span> email<span style="color:#f92672">,</span> senha<span style="color:#f92672">);</span>
+
+    PreparedStatement preparedStatement <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">connection</span><span style="color:#f92672">.</span><span style="color:#a6e22e">prepareStatement</span><span style="color:#f92672">(</span>query<span style="color:#f92672">);</span>
+
+    <span style="color:#75715e">// PARAMETRIZAÇÃO SEGURA
+</span><span style="color:#75715e"></span>    preparedStatement<span style="color:#f92672">.</span><span style="color:#a6e22e">setString</span><span style="color:#f92672">(</span>1<span style="color:#f92672">,</span> email<span style="color:#f92672">);</span>
+    preparedStatement<span style="color:#f92672">.</span><span style="color:#a6e22e">setString</span><span style="color:#f92672">(</span>2<span style="color:#f92672">,</span> senha<span style="color:#f92672">);</span>
+
+    var resultSet <span style="color:#f92672">=</span> preparedStatement<span style="color:#f92672">.</span><span style="color:#a6e22e">executeQuery</span><span style="color:#f92672">();</span>
+    Usuario usuario <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+    
+    <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>resultSet<span style="color:#f92672">.</span><span style="color:#a6e22e">next</span><span style="color:#f92672">())</span> <span style="color:#f92672">{</span>
+        usuario<span style="color:#f92672">.</span><span style="color:#a6e22e">setId</span><span style="color:#f92672">(</span>resultSet<span style="color:#f92672">.</span><span style="color:#a6e22e">getLong</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;id&#34;</span><span style="color:#f92672">));</span>
+        usuario<span style="color:#f92672">.</span><span style="color:#a6e22e">setNome</span><span style="color:#f92672">(</span>resultSet<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;nome&#34;</span><span style="color:#f92672">));</span>
+        usuario<span style="color:#f92672">.</span><span style="color:#a6e22e">setSobrenome</span><span style="color:#f92672">(</span>resultSet<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;sobrenome&#34;</span><span style="color:#f92672">));</span>
+        usuario<span style="color:#f92672">.</span><span style="color:#a6e22e">setEmail</span><span style="color:#f92672">(</span>resultSet<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;email&#34;</span><span style="color:#f92672">));</span>
+        usuario<span style="color:#f92672">.</span><span style="color:#a6e22e">setFoto</span><span style="color:#f92672">(</span>resultSet<span style="color:#f92672">.</span><span style="color:#a6e22e">getString</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;foto&#34;</span><span style="color:#f92672">));</span>
+    <span style="color:#f92672">}</span>
+
+    <span style="color:#66d9ef">return</span> usuario<span style="color:#f92672">;</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p><strong>Solução JPA:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> Usuario <span style="color:#a6e22e">login</span><span style="color:#f92672">(</span>String email<span style="color:#f92672">,</span> String senha<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    var query <span style="color:#f92672">=</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;select * from usuario where email = :email and senha = :senha&#34;</span><span style="color:#f92672">,</span> email<span style="color:#f92672">,</span> senha<span style="color:#f92672">);</span>
+    var list <span style="color:#f92672">=</span> entityManager<span style="color:#f92672">.</span><span style="color:#a6e22e">createNativeQuery</span><span style="color:#f92672">(</span>query<span style="color:#f92672">,</span> Usuario<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">setParameter</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;email&#34;</span><span style="color:#f92672">,</span> email<span style="color:#f92672">)</span> <span style="color:#75715e">// PARAMETRIZAÇÃO SEGURA
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">setParameter</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;senha&#34;</span><span style="color:#f92672">,</span> senha<span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">getResultList</span><span style="color:#f92672">();</span>
+    <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">())</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">else</span>
+        <span style="color:#66d9ef">return</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>0<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p><strong>Solução JPA com JPQL:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#66d9ef">public</span> Usuario <span style="color:#a6e22e">login</span><span style="color:#f92672">(</span>String email<span style="color:#f92672">,</span> String senha<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    var jpqlquery <span style="color:#f92672">=</span> String<span style="color:#f92672">.</span><span style="color:#a6e22e">format</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;select u from Usuario u where u.email = :email and u.senha = :senha&#34;</span><span style="color:#f92672">,</span> email<span style="color:#f92672">,</span> senha<span style="color:#f92672">);</span>
+    var list <span style="color:#f92672">=</span> entityManager<span style="color:#f92672">.</span><span style="color:#a6e22e">createQuery</span><span style="color:#f92672">(</span>jpqlquery<span style="color:#f92672">,</span> Usuario<span style="color:#f92672">.</span><span style="color:#a6e22e">class</span><span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">setParameter</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;email&#34;</span><span style="color:#f92672">,</span> email<span style="color:#f92672">)</span> <span style="color:#75715e">// PARAMETRIZAÇÃO SEGURA
+</span><span style="color:#75715e"></span>        <span style="color:#f92672">.</span><span style="color:#a6e22e">setParameter</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;senha&#34;</span><span style="color:#f92672">,</span> senha<span style="color:#f92672">)</span>
+        <span style="color:#f92672">.</span><span style="color:#a6e22e">getResultList</span><span style="color:#f92672">();</span>
+    <span style="color:#66d9ef">if</span><span style="color:#f92672">(</span>list<span style="color:#f92672">.</span><span style="color:#a6e22e">isEmpty</span><span style="color:#f92672">())</span>
+        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+    <span style="color:#66d9ef">else</span>
+        <span style="color:#66d9ef">return</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>0<span style="color:#f92672">);</span>
+<span style="color:#f92672">}</span>
+</code></pre></div><p>Devido a enorme quantidade de exploração do SQL Injection no passado, com vazamento de dados, danos causados, as soluções para a mitigação desta falha, como foi visto, são muito simples. Porém, talvez devido a falta de conscientização e conhecimento, muitas aplicações ainda sofrem com esta falha.</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
